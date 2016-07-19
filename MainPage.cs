@@ -11,92 +11,77 @@ namespace Exercise1
 	public class ListContent
 	{
 		public string FullName { get; set; }
-
 		public string Email { get; set; }
-	
 	}
-
 
 	public class MainPage : ContentPage
 	{
 
-		ObservableCollection<ListContent> item = new ObservableCollection<ListContent>();
+		public static string First_Name { get; set; }
+		public static string Last_Name { get; set; }
+		public static string Email { get; set; }
+		public static ObservableCollection<User> item = new ObservableCollection<User>();
+		public static ListView list { get; set; }
+
+
 		public MainPage()
 		{
-
 
 			this.Title = " Users ";
 			var goTo = new ToolbarItem
 			{
-				Text = "Plus",
+				Text = "  +  ",
+
 				Command = new Command(async () => await Navigation.PushModalAsync(new NavigationPage(new AddUser())))
 			};
 			this.ToolbarItems.Add(goTo);
 
-
-			ListView list = new ListView()
+			 list = new ListView()
 			{
 				ItemTemplate = new DataTemplate(() =>
 				{
 					var textCell = new TextCell();
-					textCell.SetBinding(TextCell.TextProperty, "FullName");
-					textCell.SetBinding(TextCell.DetailProperty, "Email");
+					textCell.SetBinding(TextCell.TextProperty, "first_name");
+					textCell.SetBinding(TextCell.DetailProperty, "email");
 					return textCell;
-				})
+				}),
+
+			};
+			list.BindingContext = item;
+			list.ItemTapped += async (sender, e) => {
+				User item = (User)e.Item;
+				First_Name = item.first_name;
+				Last_Name = item.last_name;
+				Email = item.email;
+				await Navigation.PushModalAsync(new NavigationPage(new ProfilePage()));
 			};
 
+			var role = JsonConvert.DeserializeObject<ObservableCollection<User>>(CacheData.user_cache);
 
-			//JsonTextReader reader = new JsonTextReader(new StringReader(AddUser.user_cache));
-			//reader.SupportMultipleContent = true;
-
-		//	while (true)
-		//	{
-				//if (!reader.Read())
-				//{
-				//	break;
-				//}
-
-				//JsonSerializer serializer = new JsonSerializer();
-			var role = JsonConvert.DeserializeObject<List< User >>(AddUser.user_cache);
-
-			//roles.Add(role );
-
-		//	}
-			item.Clear();
-			//foreach (User role in roles)
-			//{
-
-			try
-			{ 
-				for (int i = 0; i < role.Count; i++)
-				{
-					try
+				try
 					{
-						item.Add(new ListContent() { FullName = role[i].first_name +" "+ role[i].last_name , Email = role[i].email });
-						list.ItemsSource = item;
-						list.BindingContext = item;
+						list.ItemsSource = role;
 					}
-					catch
+					catch(Exception)
 					{
-
 					}
-				}
-			}
-			catch (System.NullReferenceException) { 
-			}
 
-			//}
 
-			Content = new StackLayout
+			StackLayout main = new StackLayout
 			{
 
 				HorizontalOptions = LayoutOptions.CenterAndExpand,
-				Children = {
-					list
+				Children = 
+				{
+					list 
 				}
 			};
+			Content = main;
 		}
 	}
+
+
+
 }
 
 

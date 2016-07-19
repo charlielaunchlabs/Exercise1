@@ -8,7 +8,7 @@ namespace Exercise1
 	{
 		public App()
 		{
-			MainPage = new NavigationPage(new MainPage());
+			MainPage = new MasterPage();
 		}
 
 		protected override void OnStart()

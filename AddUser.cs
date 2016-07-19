@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -14,47 +15,6 @@ namespace Exercise1
 		Entry email = new Entry() { Text = "" };
 
 
-		public static string user_cache
-		{
-			get
-			{
-				try
-				{
-					return (string)App.Current.Properties["user_cache"];
-				}
-				catch (Exception )
-				{
-					App.Current.Properties["user_cache"] = "";
-					return (string)App.Current.Properties["user_cache"];
-				}
-			}
-			set
-			{
-				App.Current.Properties["user_cache"] = value;
-			}
-		}
-
-
-		public static int number_cache
-		{
-			get
-			{
-				try
-				{
-					return (int)App.Current.Properties["number_cache"];
-				}
-				catch (Exception)
-				{
-					App.Current.Properties["number_cache"] = 0;
-					return (int)App.Current.Properties["number_cache"];
-				}
-			}
-			set
-			{
-				App.Current.Properties["user_cache"] = value;
-			}
-		}
-
 		public async void  saveF() 
 		{
 			if (fname.Text == "" || lname.Text == "" || email.Text == "")
@@ -65,54 +25,45 @@ namespace Exercise1
 			{
 				if (isEMAIL(email.Text) == true)
 				{
-					RootObject.user.Add(new User {first_name = fname.Text ,last_name=lname.Text,email=email.Text});
+					try 
+					{
+						var role = JsonConvert.DeserializeObject<ObservableCollection<User>>(CacheData.user_cache);
 
-					string json = JsonConvert.SerializeObject(RootObject.user);
+						role.Add(new User { first_name = fname.Text, last_name = lname.Text, email = email.Text });
 
+						string json = JsonConvert.SerializeObject(role);
 
-					user_cache = json;
+						CacheData.user_cache = json;
 
-					await Navigation.PushModalAsync(new NavigationPage(new MainPage()));
+						MainPage.list.ItemsSource = role;
+						await Navigation.PopModalAsync();
+					}
+					catch 
+					{
+						RootObject.user.Add(new User { first_name = fname.Text, last_name = lname.Text, email = email.Text });
+
+						string json = JsonConvert.SerializeObject(RootObject.user);
+						CacheData.user_cache = json;
+						MainPage.list.ItemsSource = RootObject.user;
+						await Navigation.PopModalAsync();
+					}
 				}
 				else { 
 					await this.DisplayAlert("Email Validation", "katong email pg high.school nmo", "OK");
 				}
-			
 			}
+		}
 
-		}
-		public bool isEMAIL(string x)
-		{
-			try
-			{
-				if (Regex.Match(x, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$").Success)
-				{ 
-					return true; 
-				}
-				else if (x == "")
-				{ 
-					return false; 
-				}
-				else
-				{ 
-					return false; 
-				}
-			}
-			catch(System.ArgumentNullException)
-			{ 
-				return false;
-			}
-		
-		}
+
+
 		public AddUser()
 		{
-			
 			this.Title = "Add User";
 			var goTo = new ToolbarItem
 			{
 				Priority = 1,
 				Text = "Cancel",
-				Command = new Command(async () => await Navigation.PushModalAsync(new NavigationPage(new MainPage())))
+				Command = new Command(async () => await Navigation.PopModalAsync())
 			};
 			var saVe = new ToolbarItem
 			{
@@ -151,6 +102,30 @@ namespace Exercise1
 			};
 
 			Content= main ;
+		}
+
+		public bool isEMAIL(string x)
+		{
+			try
+			{
+				if (Regex.Match(x, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$").Success)
+				{
+					return true;
+				}
+				else if (x == "")
+				{
+					return false;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			catch (System.ArgumentNullException)
+			{
+				return false;
+			}
+
 		}
 	}
 }

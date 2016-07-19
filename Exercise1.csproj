@@ -36,6 +36,10 @@
     <Compile Include="AddUser.cs" />
     <Compile Include="Data\RootObject.cs" />
     <Compile Include="Data\User.cs" />
+    <Compile Include="Data\CacheData.cs" />
+    <Compile Include="Data\ObservesItem.cs" />
+    <Compile Include="MasterPage.cs" />
+    <Compile Include="ProfilePage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
