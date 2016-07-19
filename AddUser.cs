@@ -34,6 +34,27 @@ namespace Exercise1
 			}
 		}
 
+
+		public static int number_cache
+		{
+			get
+			{
+				try
+				{
+					return (int)App.Current.Properties["number_cache"];
+				}
+				catch (Exception)
+				{
+					App.Current.Properties["number_cache"] = 0;
+					return (int)App.Current.Properties["number_cache"];
+				}
+			}
+			set
+			{
+				App.Current.Properties["user_cache"] = value;
+			}
+		}
+
 		public async void  saveF() 
 		{
 			if (fname.Text == "" || lname.Text == "" || email.Text == "")
@@ -44,15 +65,9 @@ namespace Exercise1
 			{
 				if (isEMAIL(email.Text) == true)
 				{
-					User user = new User
-					{
-						first_name=fname.Text,
-						last_name=lname.Text,
-						email=email.Text,
+					RootObject.user.Add(new User {first_name = fname.Text ,last_name=lname.Text,email=email.Text});
 
-					};
-
-					string json = JsonConvert.SerializeObject(user, Formatting.Indented);
+					string json = JsonConvert.SerializeObject(RootObject.user);
 
 
 					user_cache = json;
@@ -64,7 +79,6 @@ namespace Exercise1
 				}
 			
 			}
-
 
 		}
 		public bool isEMAIL(string x)
