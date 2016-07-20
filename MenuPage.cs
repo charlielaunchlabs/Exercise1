@@ -28,7 +28,7 @@ namespace Exercise1
 
 			StackLayout layout = new StackLayout
 			{
-				Spacing = 0,
+				Spacing = 1,
 				VerticalOptions = LayoutOptions.FillAndExpand
 			};
 			layout.Children.Add(menuLabel);

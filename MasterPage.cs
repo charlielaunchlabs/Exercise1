@@ -11,7 +11,7 @@ namespace Exercise1
 		{
 			
 			//string[] PageNames = { "User", "Add User" };
-			string[] PageNames = { "User" };
+			string[] PageNames = { "User" ,"UserSQL"};
 			ContentView menuLabel = new ContentView
 			{
 				Padding = new Thickness(10, 36, 0, 5),
@@ -27,7 +27,9 @@ namespace Exercise1
 			ListView listView = new ListView
 			{
 				ItemsSource = PageNames,
+				SeparatorVisibility = Xamarin.Forms.SeparatorVisibility.None
 			};
+
 			this.Master = new ContentPage
 			{
 				Title = "Menu",
@@ -45,9 +47,9 @@ namespace Exercise1
 					 case "User":
 						 gotoPage = new MainPage();
 						 break;
-					 //case "Add User":
-						// gotoPage = new AddUser();
-						// break;
+					 case "UserSQL":
+						gotoPage = new UserSQL();
+						 break;
 					 default:
 						 gotoPage = new MainPage();
 						 break;

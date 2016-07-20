@@ -26,6 +26,7 @@ namespace Exercise1
 				}
 			};
 
+
 			btn.Clicked += async (sender, e) => {
 				await Navigation.PopModalAsync();
 			};
