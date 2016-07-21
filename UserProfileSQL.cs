@@ -5,9 +5,12 @@ using System.Text.RegularExpressions;
 using Xamarin.Forms;
 using XLabs.Ioc;
 using XLabs.Platform.Device;
+using PCLStorage;
 
 namespace Exercise1
 {
+	
+
 	public class UserProfileSQL : ContentPage
 	{
 
@@ -16,10 +19,18 @@ namespace Exercise1
 		Entry email = new Entry() { Text = "" };
 		Image image = new Image();
 		Button btn = new Button() { Text = "Select Image" };
+		XLabs.Platform.Services.Media.MediaFile selectedImage;
+		public string nm= "";
+		IFileSystem FileSys { get { return FileSystem.Current; } }
 
-
-		public UserProfileSQL()
+		UserData clickedData;
+			
+		public UserProfileSQL(UserData data)
 		{
+
+			clickedData = data;
+
+
 			this.Title = "SQL Profile";
 			var goTo = new ToolbarItem
 			{
@@ -47,6 +58,7 @@ namespace Exercise1
 			email.Text = UserSQL.Email;
 			email.WidthRequest = 250;
 
+			image.Source = clickedData.Image;
 			Content = new StackLayout 
 			{ 
 				HorizontalOptions = LayoutOptions.CenterAndExpand,
@@ -58,15 +70,15 @@ namespace Exercise1
 				var mp = device.MediaPicker;
 				var options = new XLabs.Platform.Services.Media.CameraMediaStorageOptions();
 
-				XLabs.Platform.Services.Media.MediaFile selectedImage;
-
 					selectedImage = await mp.SelectPhotoAsync(options);
 				
 				var s = selectedImage.Source;
 
 				image.Source = ImageSource.FromStream(() => s);
-			
+
+
 			};
+
 
 		}
 
@@ -84,18 +96,33 @@ namespace Exercise1
 				{
 					try
 					{
-						var insert = new UserData()
-						{
-							FirstName = fname.Text,
-							LastName = lname.Text,
-							Email = email.Text
-						};
+						clickedData.FirstName = fname.Text;
+						clickedData.LastName = lname.Text;
+						clickedData.Email = email.Text;
+						clickedData.Image = selectedImage.Path;	             
 
-						App.DAUtil.UpdateUser(insert);
+
+						App.DAUtil.UpdateUser(clickedData);
 						var all = App.DAUtil.AllUser();
 						var oc = new ObservableCollection<UserData>(all);
 						UserSQL.lista.ItemsSource = oc;
+
+						//IFolder rootFolder = FileSystem.Current.LocalStorage;
+						//IFolder folder = await rootFolder.CreateFolderAsync("PhotoStorage",CreationCollisionOption.OpenIfExists);
+						//IFile file = await FileSystem.Current.GetFileFromPathAsync(selectedImage.Path);
+
+						////IFile files = await folder.CreateFileAsync(file.Path, CreationCollisionOption.ReplaceExisting);
+						//await file.MoveAsync(folder.Path,NameCollisionOption.GenerateUniqueName);
+						////byte[] buffer = new byte[100];
+						////using (System.IO.Stream stream = await files.OpenAsync(FileAccess.ReadAndWrite))
+						////{
+						////	stream.Write(buffer, 0, 100);
+						////}
+
+
 						await Navigation.PopModalAsync();
+						// nm = file.Path;
+						//await DisplayAlert(nm, nm, "OK");
 					}
 					catch { }
 				}

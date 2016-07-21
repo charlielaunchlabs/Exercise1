@@ -14,3 +14,5 @@
 /Users/launchlabs/Projects/Exercise1/Exercise1/bin/Debug/XLabs.Platform.dll
 /Users/launchlabs/Projects/Exercise1/Exercise1/bin/Debug/XLabs.Serialization.dll
 /Users/launchlabs/Projects/Exercise1/Exercise1/bin/Debug/XLabs.Forms.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Debug/PCLStorage.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Debug/PCLStorage.Abstractions.dll

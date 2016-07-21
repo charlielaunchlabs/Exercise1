@@ -1,0 +1,16 @@
+/Users/launchlabs/Projects/Exercise1/Exercise1/obj/Release/.NETPortable,Version=v4.5,Profile=Profile78.AssemblyAttribute.cs
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/Exercise1.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/obj/Release/Exercise1.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/Xamarin.Forms.Core.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/Xamarin.Forms.Xaml.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/Xamarin.Forms.Platform.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/Newtonsoft.Json.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/SQLite.Net.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/XLabs.Ioc.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/ExifLib.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/XLabs.Core.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/XLabs.Platform.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/XLabs.Serialization.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/XLabs.Forms.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/PCLStorage.dll
+/Users/launchlabs/Projects/Exercise1/Exercise1/bin/Release/PCLStorage.Abstractions.dll

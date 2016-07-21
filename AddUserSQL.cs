@@ -95,6 +95,7 @@ namespace Exercise1
 			}
 		}
 
+
 		public bool isEMAIL(string x)
 		{
 			try

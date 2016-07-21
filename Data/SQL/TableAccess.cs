@@ -13,7 +13,6 @@ namespace Exercise1
 			db = DependencyService.Get<SQLConnect>().GetConnection();
 			db.CreateTable<UserData>();
 		}
-
 		public int AddUser(UserData i)
 		{
 			return db.Insert(i);
@@ -25,7 +24,7 @@ namespace Exercise1
 		public List<UserData> AllUser()
 		{
 			return db.Query<UserData>("Select * From [UserData]");
-		}
+		}	
 		public int DeleteUser(UserData i)
 		{
 			return db.Delete(i);

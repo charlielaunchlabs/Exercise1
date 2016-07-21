@@ -11,7 +11,7 @@ namespace Exercise1
 		public static string First_Name { get; set; }
 		public static string Last_Name { get; set; }
 		public static string Email { get; set; }
-
+		public static string Image { get; set; }
 		public UserSQL()
 		{
 			ssa = this;
@@ -36,8 +36,10 @@ namespace Exercise1
 				UserData item = (UserData)e.Item;
 				First_Name = item.FirstName;
 				Last_Name = item.LastName;
-				Email = item.Email;
-				await Navigation.PushModalAsync(new NavigationPage(new UserProfileSQL()));
+				Email = item.Email/*+item.Image*/;
+				//Image = item.Image;
+
+				await Navigation.PushModalAsync(new NavigationPage(new UserProfileSQL(item)));
 			};
 			Content = new StackLayout
 			{
@@ -57,6 +59,11 @@ namespace Exercise1
 
 		public CustomListChuchu()
 		{
+			Image image = new Image
+			{
+				 
+			};
+			image.SetBinding(Image.SourceProperty, "Image");
 
 			Label firstlbl = new Label
 			{
@@ -103,7 +110,7 @@ namespace Exercise1
 			{
 				Orientation = StackOrientation.Vertical,
 				HorizontalOptions = LayoutOptions.StartAndExpand,
-				Children = { firstStack, emaillbl }
+				Children = { firstStack, emaillbl /*,image*/}
 			};
 
 
